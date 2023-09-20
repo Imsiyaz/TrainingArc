@@ -1,7 +1,8 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.ComponentModel;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class QuestionManager : MonoBehaviour
@@ -36,6 +37,13 @@ public class QuestionManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+
+        questionAnswer.Shuffle();
+        for (int i = 0; i < questionAnswer[questionCount].Answer.Length; i++)
+        {
+            questionAnswer[i].Answer.Shuffle();
+
+        }
         UpdateQuestionAnswer();
 
     }
@@ -51,12 +59,18 @@ public class QuestionManager : MonoBehaviour
             Debug.Log("wrong");
         }
 
+        questionAnswer.Shuffle();
+
+        for (int i = 0; i < questionAnswer[questionCount].Answer.Length; i++)
+        {
+            questionAnswer[i].Answer.Shuffle();
+
+        }
+
         questionCount++;
         UpdateQuestionAnswer();
-
-
     }
-    
+
 
     private void UpdateQuestionAnswer()
     {
@@ -79,5 +93,27 @@ public class QuestionManager : MonoBehaviour
         }
         
 
+    }
+
+
+
+}
+
+public static class ExtensionMethods
+{
+    public static void Shuffle<T>(this T[] array)
+    {
+
+        System.Random rng = new System.Random();
+
+        int n = array.Length;
+        while (n > 1)
+        {
+            n--;
+            int k = rng.Next(n + 1);
+            T value = array[k];
+            array[k] = array[n];
+            array[n] = value;
+        }
     }
 }
