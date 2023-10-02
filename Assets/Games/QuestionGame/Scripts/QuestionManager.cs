@@ -64,7 +64,6 @@ public class QuestionManager : MonoBehaviour
         for (int i = 0; i < questionAnswer[questionCount].Answer.Length; i++)
         {
             questionAnswer[i].Answer.Shuffle();
-
         }
 
         questionCount++;
